@@ -10,10 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+import dj_database_url
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
 
 DEBUG = True
 
@@ -22,7 +24,8 @@ DEBUG = True
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'SOME+RANDOM+BACKUPKEz9+3vnmjb0u@&w68t#5_e8s9-lbfhv-')  
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY', 'SOME+RANDOM+BACKUPKEz9+3vnmjb0u@&w68t#5_e8s9-lbfhv-')
 
 
 ALLOWED_HOSTS = ['*']
@@ -83,7 +86,6 @@ DATABASES = {
     }
 }
 
-import dj_database_url
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 DATABASES['default']['CONN_MAX_AGE'] = 500
@@ -127,14 +129,24 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-## Channels Specific
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": ["redis://:cDE+IrUO7l92RgppzhIqfWQtnZysQsI1o5Sif6KKmSI=@gocodeing.redis.cache.windows.net:6379/0"],
+            # ["redis://:cDE+IrUO7l92RgppzhIqfWQtnZysQsI1o5Sif6KKmSI=@gocodeing.redis.cache.windows.net:6379/0"]
+            # "symmetric_encryption_keys": ["cDE+IrUO7l92RgppzhIqfWQtnZysQsI1o5Sif6KKmSI="],
         },
-        # "symmetric_encryption_keys": [SECRET_KEY],
     },
 }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ggbrybzh',
+        'USER': 'ggbrybzh',
+        'PASSWORD': 'DCHzDoHg_nW18gzLorZQXrQ5YO-cd0el',
+        'HOST': 'rajje.db.elephantsql.com',
+        'PORT': '5432',
+    }
+}
