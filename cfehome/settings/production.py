@@ -133,7 +133,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": ["redis://:cDE+IrUO7l92RgppzhIqfWQtnZysQsI1o5Sif6KKmSI=@gocodeing.redis.cache.windows.net:6379/0"],
+            "hosts": ["redis://:cDE+IrUO7l92RgppzhIqfWQtnZysQsI1o5Sif6KKmSI=@gocodeing.redis.cache.windows.net:6380/0"],
             # ["redis://:cDE+IrUO7l92RgppzhIqfWQtnZysQsI1o5Sif6KKmSI=@gocodeing.redis.cache.windows.net:6379/0"]
             # "symmetric_encryption_keys": ["cDE+IrUO7l92RgppzhIqfWQtnZysQsI1o5Sif6KKmSI="],
         },
