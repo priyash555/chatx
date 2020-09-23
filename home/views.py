@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
-from .models import Post, Comment
+from .models import Post
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.template.loader import render_to_string
@@ -56,52 +56,6 @@ class ModelUpdateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         if self.request.user == post.author:
             return True
         return False
-
-
-# class ModelDetailView(DetailView):
-#     model = Post
-#     template_name = "home/detail.html"
-@login_required
-def postdetails(request, pk):
-    posts = (Post.objects.filter(id=pk))
-    user = request.user
-    comments = (Comment.objects.filter(inpost=posts[0]))
-
-    is_liked = False
-    if posts[0].likes.filter(id=user.id).exists():
-        is_liked = True
-    total_likes = posts[0].total_likes()
-    # print(total_likes)
-    # print(posts)
-    # print(comments)
-    return render(
-        request, 'home/detail.html', {
-            'posts': posts,
-            'user': user,
-            'comments': comments,
-            'is_liked': is_liked,
-            'total_likes': total_likes
-        })
-
-
-@login_required
-def commentsubmit(request, pk):
-    print("hggfg")
-    if request.method == 'POST' and request.is_ajax():
-        posts = (Post.objects.filter(id=pk))
-        user = request.user
-        content = request.POST.get('content')
-        comment = Comment(author=user, inpost=posts[0], content=content)
-        comment.save()
-        comments = (Comment.objects.filter(inpost=posts[0]))
-        context = {'posts': posts, 'user': user, 'comments': comments}
-        html = render_to_string('home/comment_section.html',
-                                context,
-                                request=request)
-        # print("html")
-        return JsonResponse({'form': html})
-
-        # return render(request, 'home/detail.html', {'posts': posts, 'user': user, 'comments':comments})
 
 
 @login_required
@@ -165,8 +119,14 @@ def about(request):
     return render(request, 'home/about.html', {})
 
 
+@login_required
 def room(request, room_name):
     return render(request, 'home/room.html', {'room_name': room_name})
+
+
+@login_required
+def userchat(request, username):
+    return render(request, 'home/user_chat.html', {'username': username})
 
 
 # def addgroup(request,):
